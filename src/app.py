@@ -108,7 +108,7 @@ fig3.update_layout(height=500, margin=dict(l=20,r=20,t=50,b=20))
 st.plotly_chart(fig3, use_container_width=True)
 
 # --- Row 3: Volume vs Price for 12-month ---
-st.subheader("Antal sålda vs Medelpris (12 månader)")
+# st.subheader("Antal sålda vs Medelpris (12 månader)")
 fig4 = px.scatter(
     df,
     x="Medelpris kr 12m",
