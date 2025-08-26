@@ -39,7 +39,7 @@ def plot_bostadsratter_sales():
         template="plotly_white",
         legend=dict(
             orientation="h", 
-            y=0.9,           
+            y=1.0,           
             x=0.5,          
             xanchor='center',  
             yanchor='bottom'  
