@@ -8,7 +8,7 @@ class DataLoader:
     """Utility class for loading and managing data with caching"""
     @staticmethod 
     @st.cache_data(ttl=3600)
-    def load_bostadratter_summary():
+    def load_villor_summary():
         try:
             file_path = repo_root / "data/villor/tabell.xlsx"
             if not file_path.exists():
@@ -35,7 +35,7 @@ class DataLoader:
         
     @staticmethod 
     @st.cache_data(ttl=3600)
-    def load_bostadratter_sales():
+    def load_villor_sales():
         """Load bostadsrätter sales data with normalized columns for Streamlit Cloud"""
         try:
             file_path = repo_root / "data/villor/bostad.xlsx"

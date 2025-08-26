@@ -4,10 +4,10 @@ import utils.helpers as helpers
 from utils.data_loader import DataLoader
 import plotly.graph_objects as go
 
-def plot_bostadsratter_sales():
+def plot_villor_sales():
 
     with st.spinner("📊 Loading data..."):
-        df = DataLoader.load_bostadratter_sales()
+        df = DataLoader.load_villor_sales()
 
     fig = go.Figure()
 
@@ -49,5 +49,5 @@ def plot_bostadsratter_sales():
     fig = helpers.add_source(fig)
     fig = helpers.plotly_title(fig, 
                 "Pris per kvadratmeter och försäljningsvolym")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig,key="unique_id_9", use_container_width=True)
     return fig

@@ -4,9 +4,10 @@ import utils.helpers as helpers
 from utils.data_loader import DataLoader
 import plotly.graph_objects as go
 
-def plot_bostadboratter_summary():
+
+def plot_villor_summary():
     with st.spinner("📊 Loading data..."):
-        df = DataLoader.load_bostadratter_summary()
+        df = DataLoader.load_villor_summary()   
 
     values = df.iloc[0]
     st.subheader("3 månader")
@@ -35,7 +36,7 @@ def plot_bostadboratter_summary():
         df,
         x="Prisutveckling 3m",
         y="Prisutveckling 12m",
-        size="Antal sålda 3m",   # <-- must match exact column name
+        size="Antal sålda 3m",   
         color="Områden",
         text="Områden",
         size_max=80,
@@ -63,6 +64,6 @@ def plot_bostadboratter_summary():
               line=dict(color="gray", dash="dash"))
     fig.add_shape(type="line", y0=0, y1=0, x0=df["Prisutveckling 3m"].min(), x1=df["Prisutveckling 3m"].max(),
                 line=dict(color="gray", dash="dash"))
-    st.plotly_chart(fig, use_container_width=True)
+
 
     return fig
