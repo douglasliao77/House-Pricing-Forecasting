@@ -1,0 +1,7 @@
+[theme]
+base="dark"
+primaryColor="#00BFFF"             # Bright cyan for highlights/buttons
+backgroundColor="#1B1B2F"          # Slightly lighter dark for main background
+secondaryBackgroundColor="#27293D" # Sidebar and cards a bit darker
+textColor="#E0E0E0"                # Light gray text for readability
+font="sans serif"
