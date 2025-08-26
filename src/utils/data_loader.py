@@ -3,6 +3,7 @@ import numpy as np
 import streamlit as st
 from pathlib import Path
 
+
 class DataLoader:
     """Utility class for loading and managing data with caching"""
     @staticmethod 
@@ -38,7 +39,7 @@ class DataLoader:
     def load_bostadratter_sales():
         """Load bostadsrätter sales data with normalized columns for Streamlit Cloud"""
         try:
-            file_path = Path("data/bostadsratter/Svensk Mäklarstatistik Bostadsrätter Riket.xlsx")
+            file_path = Path(__file__).parent / "data/bostadsratter/Svensk Mäklarstatistik Bostadsrätter Riket.xlsx"
             if not file_path.exists():
                 st.error(f"File not found: {file_path}")
                 return pd.DataFrame()
