@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 from pathlib import Path
-
+repo_root = Path(__file__).parent.parent
 
 class DataLoader:
     """Utility class for loading and managing data with caching"""
@@ -10,8 +10,7 @@ class DataLoader:
     @st.cache_data(ttl=3600)
     def load_bostadratter_summary():
         try:
-            file_path = Path(
-                "data/bostadsratter/Svensk Mäklarstatistik Tabell Riket.xlsx")
+            file_path = repo_root / "data/bostadsratter/tabell.xlsx"
             if not file_path.exists():
                 st.error(f"File not found: {file_path}")
                 return pd.DataFrame()
@@ -39,7 +38,7 @@ class DataLoader:
     def load_bostadratter_sales():
         """Load bostadsrätter sales data with normalized columns for Streamlit Cloud"""
         try:
-            file_path = Path(__file__).parent / "data/bostadsratter/Svensk Mäklarstatistik Bostadsrätter Riket.xlsx"
+            file_path = repo_root / "data/bostadsratter/bostad.xlsx"
             if not file_path.exists():
                 st.error(f"File not found: {file_path}")
                 return pd.DataFrame()
@@ -61,7 +60,7 @@ class DataLoader:
     @st.cache_data(ttl=3600)
     def load_bostadratter_room_price():
         try:
-            file_path = Path("data/bostadsratter/rum.csv")
+            file_path = repo_root / "data/bostadsratter/rum.csv"
             if not file_path.exists():
                 st.error(f"File not found: {file_path}")
                 return pd.DataFrame()
@@ -80,7 +79,7 @@ class DataLoader:
     def load_bostadsratter_data():
         """Load the bostadsratter price development data"""
         try:
-            file_path = Path("data/bostadsratter/prisutveckling.csv")
+            file_path = repo_root /"data/bostadsratter/prisutveckling.csv"
             if not file_path.exists():
                 st.error(f"File not found: {file_path}")
                 return pd.DataFrame()
