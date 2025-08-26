@@ -36,19 +36,25 @@ class DataLoader:
     @staticmethod 
     @st.cache_data(ttl=3600)
     def load_bostadratter_sales():
+        """Load bostadsrätter sales data with normalized columns for Streamlit Cloud"""
         try:
-            file_path = Path(
-                "data/bostadsratter/Svensk Mäklarstatistik Bostadsrätter Riket.xlsx")
+            file_path = Path("data/bostadsratter/Svensk Mäklarstatistik Bostadsrätter Riket.xlsx")
             if not file_path.exists():
                 st.error(f"File not found: {file_path}")
                 return pd.DataFrame()
-            
+
             df = pd.read_excel(file_path, skiprows=2)
+
+            # Normalize column names: strip spaces and fix Unicode issues
+            df.columns = df.columns.str.strip()
+            df.columns = df.columns.str.normalize('NFC')
+
             return df
-            
+
         except Exception as e:
-            st.error(f"Error loading bostadsratter data: {e}")
+            st.error(f"Error loading bostadsrätter sales data: {e}")
             return pd.DataFrame()
+
 
     @staticmethod 
     @st.cache_data(ttl=3600)
