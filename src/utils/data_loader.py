@@ -10,6 +10,56 @@ class DataLoader:
     @st.cache_data(ttl=3600)
     def load_bostadratter_summary():
         try:
+            file_path = repo_root / "data/villor/tabell.xlsx"
+            if not file_path.exists():
+                st.error(f"File not found: {file_path}")
+                return pd.DataFrame()
+            
+            df = pd.read_excel(file_path, skiprows=1)
+            df.columns = [
+                "Områden",
+                "Antal sålda 3m",
+                "Kr/kvm 3m",
+                "Medelpris kr 3m",
+                "Prisutveckling 3m",
+                "Antal sålda 12m",
+                "Kr/kvm 12m",
+                "Medelpris kr 12m",
+                "Prisutveckling 12m"
+            ]
+            return df
+            
+        except Exception as e:
+            st.error(f"Error loading bostadsratter data: {e}")
+            return pd.DataFrame()
+        
+    @staticmethod 
+    @st.cache_data(ttl=3600)
+    def load_bostadratter_sales():
+        """Load bostadsrätter sales data with normalized columns for Streamlit Cloud"""
+        try:
+            file_path = repo_root / "data/villor/bostad.xlsx"
+            if not file_path.exists():
+                st.error(f"File not found: {file_path}")
+                return pd.DataFrame()
+
+            df = pd.read_excel(file_path, skiprows=2)
+
+            # Normalize column names: strip spaces and fix Unicode issues
+            df.columns = df.columns.str.strip()
+            df.columns = df.columns.str.normalize('NFC')
+
+            return df
+
+        except Exception as e:
+            st.error(f"Error loading bostadsrätter sales data: {e}")
+            return pd.DataFrame()
+
+
+    @staticmethod 
+    @st.cache_data(ttl=3600)
+    def load_bostadratter_summary():
+        try:
             file_path = repo_root / "data/bostadsratter/tabell.xlsx"
             if not file_path.exists():
                 st.error(f"File not found: {file_path}")
@@ -66,25 +116,7 @@ class DataLoader:
                 return pd.DataFrame()
             
             df = pd.read_csv(file_path)
-            df.columns = df.columns.str.strip()
             df = df.melt(id_vars="Datum", var_name="Rooms", value_name="Pris")
-            return df
-            
-        except Exception as e:
-            st.error(f"Error loading bostadsratter data: {e}")
-            return pd.DataFrame()
-        
-    @staticmethod
-    @st.cache_data(ttl=3600) 
-    def load_bostadsratter_data():
-        """Load the bostadsratter price development data"""
-        try:
-            file_path = repo_root /"data/bostadsratter/prisutveckling.csv"
-            if not file_path.exists():
-                st.error(f"File not found: {file_path}")
-                return pd.DataFrame()
-            
-            df = pd.read_csv(file_path)
             return df
             
         except Exception as e:

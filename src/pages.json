@@ -3,23 +3,32 @@
         "url": "https://www.maklarstatistik.se/omrade/riket/#/bostadsratter",
         "folder": "bostadsratter",
         "selector": "#sales-room-total > div:nth-child(2) > div:nth-child(4) > div:nth-child(3) > button:nth-child(1)",
-        "filename": "Sales_Room_Total.xlsx"
+        "filename": "bostad"
     },
     {
         "url": "https://www.maklarstatistik.se/omrade/riket/#/bostadsratter",
         "folder": "bostadsratter",
         "selector": "#main > div:nth-child(1) > div:nth-child(1) > section:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)",
-        "filename": "Summary.xlsx"
-    },
-    {
-        "url": "https://www.maklarstatistik.se/omrade/riket/#/bostadsratter/48m-prisutveckling",
-        "folder": "bostadsratter",
-        "tab": "prisutveckling"
+        "filename": "tabell"
     },
     {
         "url": "https://www.maklarstatistik.se/omrade/riket/#/bostadsratter/48m-rum",
         "folder": "bostadsratter",
         "tab": "rum"
-    }
+    }, 
+
     
+    {
+        "url": "https://www.maklarstatistik.se/omrade/riket/#/bostadsratter",
+        "folder": "villor",
+        "selector": "#sales-room-total > div:nth-child(2) > div:nth-child(4) > div:nth-child(3) > button:nth-child(1)",
+        "filename": "bostad"
+    },
+    {
+        "url": "https://www.maklarstatistik.se/omrade/riket/#/bostadsratter",
+        "folder": "villor",
+        "selector": "#main > div:nth-child(1) > div:nth-child(2) > section:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button:nth-child(1)",
+        "filename": "tabell"
+    }
+
 ]

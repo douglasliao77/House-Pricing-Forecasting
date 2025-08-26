@@ -4,10 +4,16 @@ import utils.helpers as helpers
 from utils.data_loader import DataLoader
 import plotly.graph_objects as go
 
-def get_summary():
-    with st.spinner("📊 Loading data..."):
-        df = DataLoader.load_bostadratter_summary()
+with st.spinner("📊 Loading data..."):
+    df = DataLoader.load_bostadratter_summary()
 
+def get_data():
+    row = df.iloc[0]
+    print(row)
+
+    return row
+
+def get_summary():
     # Example: use 3-month sales for bubble size
     fig = px.scatter(
         df,

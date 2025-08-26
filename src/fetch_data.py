@@ -46,6 +46,7 @@ prefs = {
 chrome_options.add_experimental_option("prefs", prefs)
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+
 # -------------------------------
 # PROCESS EACH PAGE
 # -------------------------------
@@ -54,6 +55,7 @@ for page in PAGES:
     folder_name = page["folder"]
     tab = page.get("tab", None)
     step = page.get("selector", None)
+    filename = page.get("filename", None)  # Get the custom filename
     folder_path = os.path.join(BASE_FOLDER, folder_name)
     os.makedirs(folder_path, exist_ok=True)
 
@@ -78,7 +80,7 @@ for page in PAGES:
                 series = json.loads(canvas.get_attribute("data-series"))
 
                 # Combine all series into one DataFrame
-                data = {"Label": labels}
+                data = {"Datum": labels}
                 if tab == "rum":
                     for idx, s in enumerate(series):
                         if idx == 4:
@@ -86,16 +88,20 @@ for page in PAGES:
                         else:
                             data[f"{idx+1}:or"] = s
                 else:
-                    data[f"pris"] = s
-
+                    data[f"pris"] = series[0]  # Fixed: should be series[0] instead of s
 
                 df = pd.DataFrame(data)
 
-                # Save CSV to correct folder
-                chart_name = tab if tab else selector.replace(".chartjs--", "")
-                filename = os.path.join(folder_path, f"{chart_name}.csv")
-                df.to_csv(filename, index=False)
-                print(f"Saved combined file: {filename}")
+                # Generate filename - use custom filename if provided, otherwise default
+                if filename:
+                    chart_filename = f"{filename}.csv"
+                else:
+                    chart_name = tab if tab else selector.replace(".chartjs--", "")
+                    chart_filename = f"{chart_name}.csv"
+                
+                file_path = os.path.join(folder_path, chart_filename)
+                df.to_csv(file_path, index=False)
+                print(f"Saved file: {file_path}")
                 time.sleep(5) 
             except Exception as e:
                 print(f"Error with selector {selector}: {e}")
@@ -109,6 +115,27 @@ for page in PAGES:
             print(f"Found element, clicking via JS: {step}")
             driver.execute_script("arguments[0].click();", btn)
             print(f"Clicked successfully: {step}")
+            
+            # If this is a download button and we have a filename, wait for download and rename
+            if filename:
+                # Wait for download to complete
+                time.sleep(5)  # Adjust based on typical download time
+                
+                # Get the most recently downloaded file
+                files = os.listdir(folder_path)
+                files = [f for f in files if os.path.isfile(os.path.join(folder_path, f))]
+                files.sort(key=lambda x: os.path.getmtime(os.path.join(folder_path, x)), reverse=True)
+                
+                if files:
+                    latest_file = files[0]
+                    old_path = os.path.join(folder_path, latest_file)
+                    new_path = os.path.join(folder_path, f"{filename}.xlsx")
+                    
+                    # Rename the file
+                    if os.path.exists(old_path):
+                        os.rename(old_path, new_path)
+                        print(f"Renamed {latest_file} to {filename}.xlsx")
+            
             time.sleep(5)
         except Exception as e:
             print(f"Error clicking button for {step}: {e}")
