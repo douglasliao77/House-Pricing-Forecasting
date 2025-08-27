@@ -34,7 +34,7 @@ def plot_villor_sales():
     # Layout
     fig.update_layout(
         xaxis=dict(title="Månad"),
-        yaxis=dict(title="kr/kvm"),
+        yaxis=dict(title="K/T"),
         yaxis2=dict(title="Antal försäljningar", overlaying="y", side="right"),
         template="plotly_white",
         legend=dict(
@@ -48,6 +48,6 @@ def plot_villor_sales():
     )
     fig = helpers.add_source(fig)
     fig = helpers.plotly_title(fig, 
-                "Pris per kvadratmeter och försäljningsvolym")
+                "Köpeskillingskoefficienten och Försäljningsvolym")
     st.plotly_chart(fig,key="unique_id_9", use_container_width=True)
     return fig
