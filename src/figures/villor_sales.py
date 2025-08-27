@@ -24,8 +24,8 @@ def plot_villor_sales():
     # 2. Add line last (so it's above bars)
     fig.add_trace(go.Scatter(
         x=df["Månad"],
-        y=df["kr/kvm"],
-        name="kr/kvm",
+        y=df["K/T"],
+        name="K/T",
         mode="lines+markers",
         line=dict(color="firebrick", width=3),
         zorder=2
